@@ -49,5 +49,4 @@ def submit():
          # close connection
          if con is not None:
             con.close()
-         return render_template('index.html')
    return  render_template('form.html')

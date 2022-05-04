@@ -50,5 +50,5 @@ def submit():
          if con is not None:
             cur.close()
             con.close()
-         return redirect('index')
+         return redirect('home')
    return  render_template('form.html')

@@ -4,8 +4,8 @@ import psycopg2
 import os
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 db_uri = os.environ['DB_URI']
-secret_key = os.environ['SECRET_KEY']
 
 @app.route('/')
 def home():
@@ -25,7 +25,7 @@ def home():
 
    return render_template('index.html',table=table)
 
-@app.route('/submit')
+@app.route('/submit/', methods=('GET', 'POST'))
 def submit():
    if request.method == 'POST':
       date = request.form['reportdate']

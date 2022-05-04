@@ -44,7 +44,7 @@ def submit():
          # create a new cursor
          cur = con.cursor()
          # Create a new record
-         sql = "INSERT INTO `amounts VALUES (%s, %s, %s)"
+         sql = "INSERT INTO amounts VALUES (%s, %s, %s)"
          cur.execute(sql, (date, name, amount))
          # close connection
          if con is not None:

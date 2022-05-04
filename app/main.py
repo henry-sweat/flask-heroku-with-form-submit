@@ -11,8 +11,6 @@ db_uri = os.environ['DB_URI']
 def home():
    # create a new database connection by calling the connect() function
    con = psycopg2.connect(db_uri)
-   # create a new cursor
-   cur = con.cursor()
    # query
    query = 'SELECT * FROM amounts'
    # return results as df
@@ -46,7 +44,11 @@ def submit():
          # Create a new record
          sql = "INSERT INTO amounts VALUES (%s, %s, %s)"
          cur.execute(sql, (date, name, amount))
+         # commit changes
+         con.commit()
          # close connection
          if con is not None:
+            cur.close()
             con.close()
+         return redirect(url_for('index')
    return  render_template('form.html')

@@ -3,8 +3,11 @@ import pandas as pd
 import psycopg2
 import os
 
+# create instance of flask app
 app = Flask(__name__)
+# set flask app secret key
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+# set db uri
 db_uri = os.environ['DB_URI']
 
 @app.route('/')
@@ -25,11 +28,14 @@ def home():
 
 @app.route('/submit/', methods=('GET', 'POST'))
 def submit():
+   # functionality if POST request is received
    if request.method == 'POST':
+      # set variables from request payload
       date = request.form['reportdate']
       name = request.form['firstname']
       amount = request.form['dollaramount']
 
+      # reject request if form is not filled out
       if not date:
          flash('Date is required!')
       elif not name:
@@ -50,5 +56,6 @@ def submit():
          if con is not None:
             cur.close()
             con.close()
+         # redirect to home page
          return redirect(url_for('home'), code=302)
    return  render_template('form.html')
